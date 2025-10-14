@@ -1,11 +1,13 @@
 
 using UnityEngine;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
     public float runSpeed = 20;
-
     public float jumpSpeed = 30;
+    public int hearts;
+    public TMP_Text textHearts;
     
     
     Rigidbody2D rb2D;
@@ -16,6 +18,7 @@ public class playerController : MonoBehaviour
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        textHearts.text = hearts.ToString();
     }
 
     // Update is called once per frame
@@ -45,5 +48,25 @@ public class playerController : MonoBehaviour
             rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpSpeed);
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("corazon"))
+        {
+            Destroy(collision.gameObject);
+            hearts++;
+            textHearts.text = hearts.ToString();
+        }
+        if (hearts <= 0)
+        {
+            Debug.Log("Game Over");
+            QuitGame();
+        }
+    }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
