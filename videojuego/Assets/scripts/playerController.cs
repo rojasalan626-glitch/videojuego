@@ -6,7 +6,7 @@ public class playerController : MonoBehaviour
 {
     public float runSpeed = 20;
     public float jumpSpeed = 30;
-    public int hearts;
+    public  int hearts;
     public TMP_Text textHearts;
 
     public float doubleJumpSpeed = 25;

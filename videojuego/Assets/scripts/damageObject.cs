@@ -10,6 +10,7 @@ public class damageObject : MonoBehaviour
         {
             Debug.Log("Daño al jugador");
             player.hearts--;
+            Debug.Log("Corazones restantes: " + player.hearts);
             player.textHearts.text= player.hearts.ToString();
         }
 

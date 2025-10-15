@@ -11,7 +11,7 @@ public class spikeEnemy : MonoBehaviour
     public bool moveHorizontal = false;
     public float horizontalAmplitude = 1f; // Distancia horizontal máxima
     public float horizontalSpeed = 1f;     // Velocidad del movimiento horizontal
-
+    public playerController player;
     private Vector3 startPos;
 
     void Start()
@@ -41,7 +41,9 @@ public class spikeEnemy : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             Debug.Log("Daño al jugador");
-            Destroy(collision.gameObject);
+            player.hearts--;
+            Debug.Log("Corazones restantes: " + player.hearts);
+            player.textHearts.text = player.hearts.ToString();
         }
     }
 
