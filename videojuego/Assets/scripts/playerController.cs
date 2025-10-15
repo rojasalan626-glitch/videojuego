@@ -8,7 +8,9 @@ public class playerController : MonoBehaviour
     public float jumpSpeed = 30;
     public int hearts;
     public TMP_Text textHearts;
-    
+
+    public float doubleJumpSpeed = 25;
+    private bool canDoubleJump = false;
     
     Rigidbody2D rb2D;
     public SpriteRenderer spriteRenderer;
@@ -42,10 +44,28 @@ public class playerController : MonoBehaviour
             rb2D.linearVelocity = new Vector2(0, rb2D.linearVelocity.y);
             animator.SetBool("isRunning", false);
         }
-        if (Input.GetKey("space") && isGround.isGrounded)
+        if (Input.GetKey("space") )
         {
-            Debug.Log("Saltando"); // Mensaje normal
-            rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpSpeed);
+            if (isGround.isGrounded)
+            {
+                //Debug.Log("Saltando"); // Mensaje normal
+                canDoubleJump = true;
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpSpeed);
+            }
+            else
+            {
+                if (Input.GetKeyDown("space"))
+                {
+                    if (canDoubleJump)
+                    {
+                        //Debug.Log("Doble salto"); // Mensaje normal   
+                        Debug.Log("Doble salto"); // Mensaje normal
+                        canDoubleJump = false;
+                        rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, doubleJumpSpeed);
+                    }
+                }
+            }
+  
         }
 
     }
