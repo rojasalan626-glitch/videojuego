@@ -6,8 +6,11 @@ public class playerController : MonoBehaviour
 {
     public float runSpeed = 20;
     public float jumpSpeed = 30;
-    public  int hearts;
+    public int hearts;
+    public int pinias;
     public TMP_Text textHearts;
+    public TMP_Text textPinias;
+
 
     public float doubleJumpSpeed = 25;
     private bool canDoubleJump = false;
@@ -21,6 +24,7 @@ public class playerController : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         textHearts.text = hearts.ToString();
+        textPinias.text = pinias.ToString();
     }
 
     // Update is called once per frame
@@ -64,8 +68,7 @@ public class playerController : MonoBehaviour
                         rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, doubleJumpSpeed);
                     }
                 }
-            }
-  
+            }  
         }
 
     }
@@ -78,6 +81,12 @@ public class playerController : MonoBehaviour
             hearts++;
             textHearts.text = hearts.ToString();
         }
+        else if (collision.transform.CompareTag("pinia"))
+        {
+            Destroy(collision.gameObject);
+            pinias++;
+            textPinias.text = pinias.ToString();
+        }  
         if (hearts <= 0)
         {
             Debug.Log("Game Over");
