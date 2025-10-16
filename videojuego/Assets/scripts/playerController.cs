@@ -11,7 +11,8 @@ public class playerController : MonoBehaviour
     public TMP_Text textHearts;
     public TMP_Text textPinias;
 
-
+    //agregar audio
+    public AudioSource damageSound;
     public float doubleJumpSpeed = 25;
     private bool canDoubleJump = false;
     
@@ -84,12 +85,20 @@ public class playerController : MonoBehaviour
         else if (collision.transform.CompareTag("pinia"))
         {
             Debug.Log("Pinia recogida");
-            Destroy(collision.gameObject);
+            
+            collision.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            Destroy(collision.gameObject, 0.5f);
             pinias++;
             textPinias.text = pinias.ToString();
-            //Probar cambioo de escena con 3 pinias
-            if (pinias >= 3)
-            {
+                    // Prueba de cambio de escena con 3 piñas
+
+            
+            if (FindObjectOfType<fruitManager>().allFruitsCollected())
+                    {
+                pinias = 0;
+                hearts = 3;
+                textHearts.text = hearts.ToString();
+                textPinias.text = pinias.ToString();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }  
