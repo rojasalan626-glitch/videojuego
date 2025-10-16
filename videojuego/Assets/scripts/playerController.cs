@@ -1,7 +1,7 @@
 
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class playerController : MonoBehaviour
 {
     public float runSpeed = 20;
@@ -83,9 +83,15 @@ public class playerController : MonoBehaviour
         }
         else if (collision.transform.CompareTag("pinia"))
         {
+            Debug.Log("Pinia recogida");
             Destroy(collision.gameObject);
             pinias++;
             textPinias.text = pinias.ToString();
+            //Probar cambioo de escena con 3 pinias
+            if (pinias >= 3)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }  
         if (hearts <= 0)
         {
